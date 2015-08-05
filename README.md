@@ -9,13 +9,17 @@ and a [Terraform](http://terraform.io).
 Then, set up your secrets.
 
 ```
-$ cat terraform.tfvars
-ssh_key_path = "/home/yourname/.ssh/id_rsa"
-ssh_key_id = "12:34:56:78:9a:bc:de:f0:12:34:56:78:9a:bc:de:f0"
-do_token = "000000000000000000000000000000000000000000000000000000000000000f"
+$ ./generate.sh
+DigitalOcean token: a0b1c2d3e4f5
+Path to your SSH key [/Users/peter/.ssh/id_rsa]:
+Path to your public SSH key [/Users/peter/.ssh/id_rsa.pub]:
 
-$ cat authorized_keys
-ssh-rsa AAAAAAAAAAAA/etc hostname
+ssh_key_file = "/Users/peter/.ssh/id_rsa"
+ssh_fingerprint = "00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00"
+authorized_keys_file = "authorized_keys"
+do_token = "a0b1c2d3e4f5"
+
+ssh-rsa AAAAABCdef peter@computer
 ```
 
 To get the key ID (fingerprint),
@@ -35,4 +39,3 @@ Engage.
 ```
 $ terraform apply
 ```
-

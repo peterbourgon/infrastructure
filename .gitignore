@@ -1,5 +1,5 @@
 *.tfvars
-authorized_keys
 *.tfstate
 *.tfstate.backup
-
+.terraform
+authorized_keys
