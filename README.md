@@ -18,6 +18,12 @@ $ cat authorized_keys
 ssh-rsa AAAAAAAAAAAA/etc hostname
 ```
 
+To get the key ID (fingerprint),
+
+```
+$ ssh-keygen -lf $HOME/.ssh/id_rsa.pub
+```
+
 Check your plan.
 
 ```
