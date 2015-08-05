@@ -3,10 +3,10 @@ variable "cloudflare_name" {}
 variable "cloudflare_value" {}
 
 resource "cloudflare_record" "record" {
-    domain = "${var.cloudflare_domain}"
-    name = "${var.cloudflare_name}"
-    value = "${var.cloudflare_value}"
-    type = "A"
+	domain = "${var.cloudflare_domain}"
+	name = "${var.cloudflare_name}"
+	value = "${var.cloudflare_value}"
+	type = "A"
 }
 
 output "hostname" {
