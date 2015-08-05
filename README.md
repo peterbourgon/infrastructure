@@ -13,19 +13,25 @@ $ ./generate.sh
 DigitalOcean token: a0b1c2d3e4f5
 Path to your SSH key [/Users/peter/.ssh/id_rsa]:
 Path to your public SSH key [/Users/peter/.ssh/id_rsa.pub]:
+CloudFlare email: peter@computermail.org
+CloudFlare token: a0b1c2d3e4f5
+CloudFlare domain: internet.website
 
+do_token = "a0b1c2d3e4f5"
 ssh_key_file = "/Users/peter/.ssh/id_rsa"
 ssh_fingerprint = "00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00"
 authorized_keys_file = "authorized_keys"
-do_token = "a0b1c2d3e4f5"
+cloudflare_email = "peter@computermail.org"
+cloudflare_token = "a0b1c3d3e4f5"
+cloudflare_domain = "internet.website"
 
 ssh-rsa AAAAABCdef peter@computer
 ```
 
-To get the key ID (fingerprint),
+Register the modules with Terraform.
 
 ```
-$ ssh-keygen -lf $HOME/.ssh/id_rsa.pub
+$ terraform get
 ```
 
 Check your plan.
@@ -39,3 +45,4 @@ Engage.
 ```
 $ terraform apply
 ```
+
