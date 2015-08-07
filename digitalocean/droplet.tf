@@ -32,16 +32,36 @@ resource "digitalocean_droplet" "droplet" {
 
 	provisioner "remote-exec" {
 		inline = [
+			# apt-get
 			"echo 'deb http://download.opensuse.org/repositories/shells:/fish:/release:/2/Debian_8.0/ /' > /etc/apt/sources.list.d/fish.list",
 			"apt-get update",
-			"apt-get install -y --force-yes sudo make vim git mercurial mosh fish curl wget unzip htop jq binutils",
+			"apt-get install -y --force-yes sudo make vim git mercurial mosh fish curl wget unzip htop jq binutils gcc",
+
+			# locale-gen, for mosh
 			"echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen", # >:|
 			"locale-gen",
+
+			# Go
 			"wget https://storage.googleapis.com/golang/go1.4.2.linux-amd64.tar.gz",
 			"tar -C /usr/local -xzf go1.4.2.linux-amd64.tar.gz",
 			"rm go1.4.2.linux-amd64.tar.gz",
+
+			# sudo permissions and add user
+			"sed -i.bak 's/sudo\tALL=(ALL:ALL) ALL/sudo\tALL=(ALL:ALL) NOPASSWD: ALL/g' /etc/sudoers",
 			"adduser --shell /usr/bin/fish --ingroup sudo --disabled-password --gecos '' ${var.user}",
-			"mkdir -p /home/${var.user}/.ssh"
+			"mkdir -p /home/${var.user}/.ssh",
+
+			# Docker
+			"curl -SsL https://get.docker.com/ | sh",
+			"usermod -aG docker ${var.user}",
+			"curl -L https://github.com/docker/compose/releases/download/1.2.0/docker-compose-Linux-x86_64 > /usr/local/bin/docker-compose",
+			"chmod +x /usr/local/bin/docker-compose",
+
+			# Weave
+			"curl -L git.io/weave -o /usr/local/bin/weave",
+			"chmod a+x /usr/local/bin/weave",
+			"/usr/local/go/bin/go clean -i net",
+			"/usr/local/go/bin/go install -tags netgo std"
 		]
 	}
 
@@ -56,12 +76,13 @@ resource "digitalocean_droplet" "droplet" {
 			key_file = "${var.ssh_key_file}"
 		}
 		inline = [
+			# dotfiles
 			"mkdir -p src/github.com/peterbourgon",
 			"cd src/github.com/peterbourgon",
 			"rm -rf cfg", # idempotent
 			"git clone https://github.com/peterbourgon/cfg.git",
 			"cd cfg",
-			"sh -c 'rm -rf /home/${var.user}/.config ; ./SETUP.bash'"
+			"sh -c 'rm -rf /home/${var.user}/.config ; ./SETUP.bash'",
 		]
 	}
 }

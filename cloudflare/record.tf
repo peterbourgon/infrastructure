@@ -7,6 +7,7 @@ resource "cloudflare_record" "record" {
 	name = "${var.cloudflare_name}"
 	value = "${var.cloudflare_value}"
 	type = "A"
+	ttl = "1" # automatic
 }
 
 output "hostname" {
