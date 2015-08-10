@@ -35,7 +35,7 @@ resource "digitalocean_droplet" "droplet" {
 			# apt-get
 			"echo 'deb http://download.opensuse.org/repositories/shells:/fish:/release:/2/Debian_8.0/ /' > /etc/apt/sources.list.d/fish.list",
 			"apt-get update",
-			"apt-get install -y --force-yes sudo make vim git mercurial mosh fish curl wget unzip htop jq binutils gcc",
+			"apt-get install -y --force-yes sudo make vim git mercurial mosh fish curl wget unzip htop jq binutils gcc libpcap-dev",
 
 			# locale-gen, for mosh
 			"echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen", # >:|

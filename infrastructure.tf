@@ -16,11 +16,11 @@ variable "ssh_fingerprint" {}
 variable "ssh_key_file" {}
 variable "authorized_keys_file" {}
 
-module "socrates_host" {
+module "husserl_host" {
 	source = "./digitalocean"
-	hostname = "socrates"
+	hostname = "husserl"
 	region = "ams3"
-	size = "512mb"
+	size = "4gb"
 	ssh_fingerprint = "${var.ssh_fingerprint}"
 	ssh_key_file = "${var.ssh_key_file}"
 	authorized_keys_file = "${var.authorized_keys_file}"
@@ -28,9 +28,9 @@ module "socrates_host" {
 
 variable "cloudflare_domain" {}
 
-module "socrates_dns" {
+module "husserl_dns" {
 	source = "./cloudflare"
 	cloudflare_domain = "${var.cloudflare_domain}"
-	cloudflare_name = "socrates"
-	cloudflare_value = "${module.socrates_host.ip}"
+	cloudflare_name = "husserl"
+	cloudflare_value = "${module.husserl_host.ip}"
 }
