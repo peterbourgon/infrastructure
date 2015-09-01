@@ -5,7 +5,8 @@ My servers, let me show you them.
 ## Usage
 
 Get yourself a [Digital Ocean](http://digitalocean.com)
-and a [Terraform](http://terraform.io).
+and a [Terraform](http://terraform.io)
+and a [CloudFlare](https://cloudflare.com).
 Then, set up your secrets.
 
 ```
