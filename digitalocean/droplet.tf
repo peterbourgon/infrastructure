@@ -42,14 +42,15 @@ resource "digitalocean_droplet" "droplet" {
 			"locale-gen",
 
 			# Go
-			"wget https://storage.googleapis.com/golang/go1.4.2.linux-amd64.tar.gz",
-			"tar -C /usr/local -xzf go1.4.2.linux-amd64.tar.gz",
-			"rm go1.4.2.linux-amd64.tar.gz",
+			"wget https://storage.googleapis.com/golang/go1.5.linux-amd64.tar.gz",
+			"tar -C /usr/local -xzf go1.5.linux-amd64.tar.gz",
+			"rm go1.5.linux-amd64.tar.gz",
 
 			# sudo permissions and add user
 			"sed -i.bak 's/sudo\tALL=(ALL:ALL) ALL/sudo\tALL=(ALL:ALL) NOPASSWD: ALL/g' /etc/sudoers",
 			"adduser --shell /usr/bin/fish --ingroup sudo --disabled-password --gecos '' ${var.user}",
 			"mkdir -p /home/${var.user}/.ssh",
+			"chown ${var.user}:sudo /home/${var.user}/.ssh",
 
 			# Docker
 			"curl -SsL https://get.docker.com/ | sh",
