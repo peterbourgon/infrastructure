@@ -42,9 +42,9 @@ resource "digitalocean_droplet" "droplet" {
 			"locale-gen",
 
 			# Go
-			"wget https://storage.googleapis.com/golang/go1.5.linux-amd64.tar.gz",
-			"tar -C /usr/local -xzf go1.5.linux-amd64.tar.gz",
-			"rm go1.5.linux-amd64.tar.gz",
+			"wget https://storage.googleapis.com/golang/go1.5.1.linux-amd64.tar.gz",
+			"tar -C /usr/local -xzf go1.5.1.linux-amd64.tar.gz",
+			"rm go1.5.1.linux-amd64.tar.gz",
 
 			# sudo permissions and add user
 			"sed -i.bak 's/sudo\tALL=(ALL:ALL) ALL/sudo\tALL=(ALL:ALL) NOPASSWD: ALL/g' /etc/sudoers",
@@ -62,7 +62,9 @@ resource "digitalocean_droplet" "droplet" {
 			"curl -L git.io/weave -o /usr/local/bin/weave",
 			"chmod a+x /usr/local/bin/weave",
 			"/usr/local/go/bin/go clean -i net",
-			"/usr/local/go/bin/go install -tags netgo std"
+			"/usr/local/go/bin/go install -tags netgo std",
+			"weave launch -iprange=10.9.0.0/16", # default range conflicts with DigitalOcean
+			"weave launch-dns",
 		]
 	}
 
@@ -77,13 +79,18 @@ resource "digitalocean_droplet" "droplet" {
 			key_file = "${var.ssh_key_file}"
 		}
 		inline = [
-			# dotfiles
-			"mkdir -p src/github.com/peterbourgon",
-			"cd src/github.com/peterbourgon",
+			# Dotfiles
+			"mkdir -p $HOME/src/github.com/peterbourgon",
+			"cd $HOME/src/github.com/peterbourgon",
 			"rm -rf cfg", # idempotent
 			"git clone https://github.com/peterbourgon/cfg.git",
 			"cd cfg",
 			"sh -c 'rm -rf /home/${var.user}/.config ; ./SETUP.bash'",
+
+			# Scope
+			"mkdir -p $HOME/src/github.com/weaveworks",
+			"cd $HOME/src/github.com/weaveworks",
+			"git clone https://github.com/weaveworks/scope",
 		]
 	}
 }
