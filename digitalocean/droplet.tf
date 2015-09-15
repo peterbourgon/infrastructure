@@ -64,7 +64,6 @@ resource "digitalocean_droplet" "droplet" {
 			"/usr/local/go/bin/go clean -i net",
 			"/usr/local/go/bin/go install -tags netgo std",
 			"weave launch -iprange=10.9.0.0/16", # default range conflicts with DigitalOcean
-			"weave launch-dns",
 		]
 	}
 
