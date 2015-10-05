@@ -52,6 +52,9 @@ resource "digitalocean_droplet" "droplet" {
 			"mkdir -p /home/${var.user}/.ssh",
 			"chown ${var.user}:sudo /home/${var.user}/.ssh",
 
+			# Weave likes to `go install -tags netgo`, which will fail unless we...
+			"chown -R ${var.user}:sudo /usr/local/go/pkg",
+
 			# Docker
 			"curl -SsL https://get.docker.com/ | sh",
 			"usermod -aG docker ${var.user}",
