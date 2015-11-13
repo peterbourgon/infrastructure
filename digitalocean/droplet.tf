@@ -56,7 +56,7 @@ resource "digitalocean_droplet" "droplet" {
 			"chown -R ${var.user}:sudo /usr/local/go/pkg",
 
 			# Docker
-			"curl -SsL https://get.docker.com/ | sh",
+			"curl -SsL https://get.docker.com/ | sed -e 's/docker-engine/docker-engine=1.8.4~jessie/' | sh",
 			"usermod -aG docker ${var.user}",
 			"curl -L https://github.com/docker/compose/releases/download/1.2.0/docker-compose-Linux-x86_64 > /usr/local/bin/docker-compose",
 			"chmod +x /usr/local/bin/docker-compose",
