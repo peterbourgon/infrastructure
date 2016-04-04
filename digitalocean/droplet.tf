@@ -69,6 +69,11 @@ resource "digitalocean_droplet" "droplet" {
 			"/usr/local/go/bin/go install -tags netgo std",
 			"weave launch --ipalloc-range=10.9.0.0/16", # default range conflicts with DigitalOcean
 			"echo https://github.com/hashicorp/terraform/issues/3249",
+
+			# Kubernetes Anywhere
+			"sed 's/\\(MountFlags=slave\\)/# \\1/' -i /lib/systemd/system/docker.service",
+			"systemctl daemon-reload",
+			"systemctl restart docker",
 		]
 	}
 
@@ -105,8 +110,28 @@ resource "digitalocean_droplet" "droplet" {
 
 			# Kubernetes
 			"mkdir -p $HOME/bin",
-			"wget -O $HOME/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/v1.1.1/bin/linux/amd64/kubectl",
+			"wget -O $HOME/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/v1.2.1/bin/linux/amd64/kubectl",
 			"chmod +x $HOME/bin/kubectl",
+
+			# Kubernetes Anywhere scripts
+			"echo '#!/usr/bin/env bash'                     >> $HOME/reset-weave.bash",
+			"echo 'weave stop'                              >> $HOME/reset-weave.bash",
+			"echo 'weave launch-router'                     >> $HOME/reset-weave.bash",
+			"echo 'weave launch-proxy --rewrite-inspect'    >> $HOME/reset-weave.bash",
+			"echo 'weave expose -h $(hostname).weave.local' >> $HOME/reset-weave.bash",
+			"chmod +x $HOME/reset-weave.bash",
+			"echo",
+			"echo '#!/usr/bin/env bash' >> $HOME/toolbox.bash",
+			"echo 'eval $(weave env)'   >> $HOME/toolbox.bash",
+			"echo 'docker run --rm -ti -v /:/rootfs -v /var/run/weave/weave.sock:/docker.sock weaveworks/kubernetes-anywhere:toolbox $*' >> $HOME/toolbox.bash",
+			"chmod +x $HOME/toolbox.bash",
+			"echo",
+			"echo '#!/usr/bin/env bash'                               >> $HOME/setup-kubernetes.bash",
+			"echo '$HOME/toolbox.bash setup-kubelet-volumes'          >> $HOME/setup-kubernetes.bash",
+			"echo '$HOME/toolbox.bash compose -p kube pull'           >> $HOME/setup-kubernetes.bash",
+			"echo '$HOME/toolbox.bash compose -p kube up -d'          >> $HOME/setup-kubernetes.bash",
+			"echo '$HOME/toolbox.bash kubectl create -f skydns-addon' >> $HOME/setup-kubernetes.bash",
+			"chmod +x $HOME/setup-kubernetes.bash",
 		]
 	}
 }
