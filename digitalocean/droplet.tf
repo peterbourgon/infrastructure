@@ -42,9 +42,9 @@ resource "digitalocean_droplet" "droplet" {
 			"locale-gen",
 
 			# Go
-			"wget https://storage.googleapis.com/golang/go1.5.1.linux-amd64.tar.gz",
-			"tar -C /usr/local -xzf go1.5.1.linux-amd64.tar.gz",
-			"rm go1.5.1.linux-amd64.tar.gz",
+			"wget https://storage.googleapis.com/golang/go1.6.linux-amd64.tar.gz",
+			"tar -C /usr/local -xzf go1.6.linux-amd64.tar.gz",
+			"rm go1.6.linux-amd64.tar.gz",
 
 			# sudo permissions and add user
 			"sed -i.bak 's/sudo\tALL=(ALL:ALL) ALL/sudo\tALL=(ALL:ALL) NOPASSWD: ALL/g' /etc/sudoers",
@@ -56,7 +56,8 @@ resource "digitalocean_droplet" "droplet" {
 			"chown -R ${var.user}:sudo /usr/local/go/pkg",
 
 			# Docker
-			"curl -SsL https://get.docker.com/ | sed -e 's/docker-engine/docker-engine=1.8.3-0~jessie/' | sh",
+			#"curl -SsL https://get.docker.com/ | sed -e 's/docker-engine/docker-engine=1.8.3-0~jessie/' | sh",
+			"curl -SsL https://get.docker.com/ | sh",
 			"usermod -aG docker ${var.user}",
 			"curl -L https://github.com/docker/compose/releases/download/1.2.0/docker-compose-Linux-x86_64 > /usr/local/bin/docker-compose",
 			"chmod +x /usr/local/bin/docker-compose",
