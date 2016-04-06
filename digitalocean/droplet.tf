@@ -82,12 +82,25 @@ resource "digitalocean_droplet" "droplet" {
 		destination = "/home/${var.user}/.ssh/authorized_keys"
 	}
 
+	# Kubernetes Anywhere scripts
+	provisioner "file" {
+		connection {
+			user = "${var.user}"
+			key_file = "${var.ssh_key_file}"
+		}
+		source = "digitalocean/kubernetes-anywhere" # directory
+		destination = "$HOME"
+	}
+
 	provisioner "remote-exec" {
 		connection {
 			user = "${var.user}"
 			key_file = "${var.ssh_key_file}"
 		}
 		inline = [
+			# Make Kubernetes Anywhere scripts executable
+			"chmod +x $HOME/kubernetes-anywhere/*.bash",
+
 			# Dotfiles
 			"mkdir -p $HOME/src/github.com/peterbourgon",
 			"cd $HOME/src/github.com/peterbourgon",
@@ -105,33 +118,13 @@ resource "digitalocean_droplet" "droplet" {
 			# TNS
 			"cd $HOME/src/github.com/peterbourgon",
 			"git clone https://github.com/peterbourgon/tns",
-			"cd tns",
-			"docker-compose up -d",
+			#"cd tns",
+			#"docker-compose up -d",
 
-			# Kubernetes
+			# kubectl
 			"mkdir -p $HOME/bin",
 			"wget -O $HOME/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/v1.2.1/bin/linux/amd64/kubectl",
 			"chmod +x $HOME/bin/kubectl",
-
-			# Kubernetes Anywhere scripts
-			"echo '#!/usr/bin/env bash'                     >> $HOME/reset-weave.bash",
-			"echo 'weave stop'                              >> $HOME/reset-weave.bash",
-			"echo 'weave launch-router'                     >> $HOME/reset-weave.bash",
-			"echo 'weave launch-proxy --rewrite-inspect'    >> $HOME/reset-weave.bash",
-			"echo 'weave expose -h $(hostname).weave.local' >> $HOME/reset-weave.bash",
-			"chmod +x $HOME/reset-weave.bash",
-			"echo",
-			"echo '#!/usr/bin/env bash' >> $HOME/toolbox.bash",
-			"echo 'eval $(weave env)'   >> $HOME/toolbox.bash",
-			"echo 'docker run --rm -ti -v /:/rootfs -v /var/run/weave/weave.sock:/docker.sock weaveworks/kubernetes-anywhere:toolbox $*' >> $HOME/toolbox.bash",
-			"chmod +x $HOME/toolbox.bash",
-			"echo",
-			"echo '#!/usr/bin/env bash'                               >> $HOME/setup-kubernetes.bash",
-			"echo '$HOME/toolbox.bash setup-kubelet-volumes'          >> $HOME/setup-kubernetes.bash",
-			"echo '$HOME/toolbox.bash compose -p kube pull'           >> $HOME/setup-kubernetes.bash",
-			"echo '$HOME/toolbox.bash compose -p kube up -d'          >> $HOME/setup-kubernetes.bash",
-			"echo '$HOME/toolbox.bash kubectl create -f skydns-addon' >> $HOME/setup-kubernetes.bash",
-			"chmod +x $HOME/setup-kubernetes.bash",
 		]
 	}
 }
