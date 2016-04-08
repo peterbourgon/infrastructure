@@ -18,6 +18,22 @@ variable "authorized_keys_file" {}
 
 variable "cloudflare_domain" {}
 
+module "archimedes_host" {
+	source = "./digitalocean"
+	hostname = "archimedes"
+	region = "nyc3"
+	size = "512mb"
+	ssh_fingerprint = "${var.ssh_fingerprint}"
+	ssh_key_file = "${var.ssh_key_file}"
+	authorized_keys_file = "${var.authorized_keys_file}"
+}
+module "archimedes_dns" {
+	source = "./cloudflare"
+	cloudflare_domain = "${var.cloudflare_domain}"
+	cloudflare_name = "archimedes"
+	cloudflare_value = "${module.archimedes_host.ip}"
+}
+
 #module "husserl_host" {
 #	source = "./digitalocean"
 #	hostname = "husserl"
@@ -85,7 +101,7 @@ variable "cloudflare_domain" {}
 #module "k2_host" {
 #	source = "./digitalocean"
 #	hostname = "k2"
-#	region = "nyc3"
+#	region = "sfo1"
 #	size = "1gb"
 #	ssh_fingerprint = "${var.ssh_fingerprint}"
 #	ssh_key_file = "${var.ssh_key_file}"

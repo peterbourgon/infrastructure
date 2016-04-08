@@ -67,8 +67,7 @@ resource "digitalocean_droplet" "droplet" {
 			"chmod a+x /usr/local/bin/weave",
 			"/usr/local/go/bin/go clean -i net",
 			"/usr/local/go/bin/go install -tags netgo std",
-			"weave launch --ipalloc-range=10.9.0.0/16", # default range conflicts with DigitalOcean
-			"echo https://github.com/hashicorp/terraform/issues/3249",
+			# "weave launch --ipalloc-range=10.9.0.0/16", # default range conflicts with DigitalOcean
 
 			# Kubernetes Anywhere
 			"sed 's/\\(MountFlags=slave\\)/# \\1/' -i /lib/systemd/system/docker.service",
@@ -105,21 +104,26 @@ resource "digitalocean_droplet" "droplet" {
 			"mkdir -p $HOME/src/github.com/peterbourgon",
 			"cd $HOME/src/github.com/peterbourgon",
 			"rm -rf cfg", # idempotent
-			"git clone https://github.com/peterbourgon/cfg.git",
+			"git clone https://github.com/peterbourgon/cfg",
 			"cd cfg",
 			"sh -c 'rm -rf /home/${var.user}/.config ; ./SETUP.bash'",
+
+			# Go programs
+			"go get github.com/peterbourgon/grender",
+			"go get github.com/peterbourgon/stats",
+			"go get github.com/peterbourgon/sums",
 
 			# Scope
 			"mkdir -p $HOME/src/github.com/weaveworks",
 			"cd $HOME/src/github.com/weaveworks",
 			"git clone https://github.com/weaveworks/scope",
-			"./scope launch", # will use latest from Docker Hub
+			# "./scope launch", # will use latest from Docker Hub
 
 			# TNS
 			"cd $HOME/src/github.com/peterbourgon",
 			"git clone https://github.com/peterbourgon/tns",
 			#"cd tns",
-			#"docker-compose up -d",
+			# "docker-compose up -d",
 
 			# kubectl
 			"mkdir -p $HOME/bin",
