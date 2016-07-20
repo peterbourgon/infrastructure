@@ -50,48 +50,48 @@ variable "cloudflare_domain" {}
 #	cloudflare_value = "${module.husserl_host.ip}"
 #}
 
-#module "a_host" {
+#module "foo_host" {
 #	source = "./digitalocean"
-#	hostname = "a"
+#	hostname = "foo"
 #	region = "ams3"
-#	size = "4gb"
+#	size = "1gb"
 #	ssh_fingerprint = "${var.ssh_fingerprint}"
 #	ssh_key_file = "${var.ssh_key_file}"
 #	authorized_keys_file = "${var.authorized_keys_file}"
 #}
-#module "a_dns" {
+#module "foo_dns" {
 #	source = "./cloudflare"
 #	cloudflare_domain = "${var.cloudflare_domain}"
-#	cloudflare_name = "a"
-#	cloudflare_value = "${module.a_host.ip}"
+#	cloudflare_name = "foo"
+#	cloudflare_value = "${module.foo_host.ip}"
 #}
-#module "b_host" {
+#module "bar_host" {
 #	source = "./digitalocean"
-#	hostname = "b"
+#	hostname = "bar"
 #	region = "ams3"
-#	size = "4gb"
+#	size = "1gb"
 #	ssh_fingerprint = "${var.ssh_fingerprint}"
 #	ssh_key_file = "${var.ssh_key_file}"
 #	authorized_keys_file = "${var.authorized_keys_file}"
 #}
-#module "b_dns" {
+#module "bar_dns" {
 #	source = "./cloudflare"
 #	cloudflare_domain = "${var.cloudflare_domain}"
-#	cloudflare_name = "b"
-#	cloudflare_value = "${module.b_host.ip}"
+#	cloudflare_name = "bar"
+#	cloudflare_value = "${module.bar_host.ip}"
 #}
-#module "c_host" {
+#module "baz_host" {
 #	source = "./digitalocean"
-#	hostname = "c"
+#	hostname = "baz"
 #	region = "ams3"
-#	size = "4gb"
+#	size = "1gb"
 #	ssh_fingerprint = "${var.ssh_fingerprint}"
 #	ssh_key_file = "${var.ssh_key_file}"
 #	authorized_keys_file = "${var.authorized_keys_file}"
 #}
-#module "c_dns" {
+#module "baz_dns" {
 #	source = "./cloudflare"
 #	cloudflare_domain = "${var.cloudflare_domain}"
-#	cloudflare_name = "c"
-#	cloudflare_value = "${module.c_host.ip}"
+#	cloudflare_name = "baz"
+#	cloudflare_value = "${module.baz_host.ip}"
 #}
