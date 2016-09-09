@@ -68,11 +68,6 @@ resource "digitalocean_droplet" "droplet" {
 			"/usr/local/go/bin/go clean -i net",
 			"/usr/local/go/bin/go install -tags netgo std",
 			# "weave launch --ipalloc-range=10.9.0.0/16", # default range conflicts with DigitalOcean
-
-			# Kubernetes Anywhere
-			"sed 's/\\(MountFlags=slave\\)/# \\1/' -i /lib/systemd/system/docker.service",
-			"systemctl daemon-reload",
-			"systemctl restart docker",
 		]
 	}
 
@@ -81,25 +76,12 @@ resource "digitalocean_droplet" "droplet" {
 		destination = "/home/${var.user}/.ssh/authorized_keys"
 	}
 
-	# Kubernetes Anywhere scripts
-	provisioner "file" {
-		connection {
-			user = "${var.user}"
-			key_file = "${var.ssh_key_file}"
-		}
-		source = "digitalocean/kubernetes-anywhere" # directory
-		destination = "$HOME"
-	}
-
 	provisioner "remote-exec" {
 		connection {
 			user = "${var.user}"
 			key_file = "${var.ssh_key_file}"
 		}
 		inline = [
-			# Make Kubernetes Anywhere scripts executable
-			"chmod +x $HOME/kubernetes-anywhere/*.bash",
-
 			# Dotfiles
 			"mkdir -p $HOME/src/github.com/peterbourgon",
 			"cd $HOME/src/github.com/peterbourgon",
@@ -127,7 +109,7 @@ resource "digitalocean_droplet" "droplet" {
 
 			# kubectl
 			"mkdir -p $HOME/bin",
-			"wget -O $HOME/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/v1.2.1/bin/linux/amd64/kubectl",
+			"wget -O $HOME/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/v1.3.6/bin/linux/amd64/kubectl",
 			"chmod +x $HOME/bin/kubectl",
 		]
 	}

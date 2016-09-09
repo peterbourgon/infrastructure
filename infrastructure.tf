@@ -18,15 +18,15 @@ variable "authorized_keys_file" {}
 
 variable "cloudflare_domain" {}
 
-#module "archimedes_host" {
-#	source = "./digitalocean"
-#	hostname = "archimedes"
-#	region = "nyc3"
-#	size = "512mb"
-#	ssh_fingerprint = "${var.ssh_fingerprint}"
-#	ssh_key_file = "${var.ssh_key_file}"
-#	authorized_keys_file = "${var.authorized_keys_file}"
-#}
+module "archimedes_host" {
+	source = "./digitalocean/bare"
+	hostname = "archimedes"
+	region = "nyc3"
+	size = "2gb"
+	ssh_fingerprint = "${var.ssh_fingerprint}"
+	ssh_key_file = "${var.ssh_key_file}"
+	authorized_keys_file = "${var.authorized_keys_file}"
+}
 #module "archimedes_dns" {
 #	source = "./cloudflare"
 #	cloudflare_domain = "${var.cloudflare_domain}"
@@ -35,7 +35,7 @@ variable "cloudflare_domain" {}
 #}
 
 #module "husserl_host" {
-#	source = "./digitalocean"
+#	source = "./digitalocean/full"
 #	hostname = "husserl"
 #	region = "ams3"
 #	size = "4gb"
@@ -51,7 +51,7 @@ variable "cloudflare_domain" {}
 #}
 
 #module "foo_host" {
-#	source = "./digitalocean"
+#	source = "./digitalocean/full"
 #	hostname = "foo"
 #	region = "ams3"
 #	size = "1gb"
@@ -66,7 +66,7 @@ variable "cloudflare_domain" {}
 #	cloudflare_value = "${module.foo_host.ip}"
 #}
 #module "bar_host" {
-#	source = "./digitalocean"
+#	source = "./digitalocean/full"
 #	hostname = "bar"
 #	region = "ams3"
 #	size = "1gb"
@@ -81,7 +81,7 @@ variable "cloudflare_domain" {}
 #	cloudflare_value = "${module.bar_host.ip}"
 #}
 #module "baz_host" {
-#	source = "./digitalocean"
+#	source = "./digitalocean/full"
 #	hostname = "baz"
 #	region = "ams3"
 #	size = "1gb"
