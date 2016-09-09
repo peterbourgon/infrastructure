@@ -51,7 +51,7 @@ module "archimedes_host" {
 #}
 
 #module "foo_host" {
-#	source = "./digitalocean/full"
+#	source = "./digitalocean/bare"
 #	hostname = "foo"
 #	region = "ams3"
 #	size = "1gb"
@@ -66,7 +66,7 @@ module "archimedes_host" {
 #	cloudflare_value = "${module.foo_host.ip}"
 #}
 #module "bar_host" {
-#	source = "./digitalocean/full"
+#	source = "./digitalocean/bare"
 #	hostname = "bar"
 #	region = "ams3"
 #	size = "1gb"
@@ -81,7 +81,7 @@ module "archimedes_host" {
 #	cloudflare_value = "${module.bar_host.ip}"
 #}
 #module "baz_host" {
-#	source = "./digitalocean/full"
+#	source = "./digitalocean/bare"
 #	hostname = "baz"
 #	region = "ams3"
 #	size = "1gb"
