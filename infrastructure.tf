@@ -95,3 +95,4 @@ module "archimedes_host" {
 #	cloudflare_name = "baz"
 #	cloudflare_value = "${module.baz_host.ip}"
 #}
+# https://gist.github.com/peterbourgon/c1841cbed2e4d2db0ff0ae7b4f2cf2da
