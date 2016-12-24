@@ -47,7 +47,7 @@ then
 	exit 1
 fi
 
-key_fingerprint=$(ssh-keygen -lf $public_key_file | awk '{print $2}')
+key_fingerprint=$(ssh-keygen -E md5 -lf $public_key_file | awk '{print $2}' | cut -d':' -f2-)
 vars_file="terraform.tfvars"
 authorized_keys_file="authorized_keys"
 
