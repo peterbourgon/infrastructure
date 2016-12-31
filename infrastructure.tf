@@ -18,15 +18,15 @@ variable "authorized_keys_file" {}
 
 variable "cloudflare_domain" {}
 
-module "archimedes_host" {
-	source = "./digitalocean/bare"
-	hostname = "archimedes"
-	region = "nyc3"
-	size = "2gb"
-	ssh_fingerprint = "${var.ssh_fingerprint}"
-	ssh_key_file = "${var.ssh_key_file}"
-	authorized_keys_file = "${var.authorized_keys_file}"
-}
+#module "archimedes_host" {
+#	source = "./digitalocean/bare"
+#	hostname = "archimedes"
+#	region = "nyc3"
+#	size = "2gb"
+#	ssh_fingerprint = "${var.ssh_fingerprint}"
+#	ssh_key_file = "${var.ssh_key_file}"
+#	authorized_keys_file = "${var.authorized_keys_file}"
+#}
 #module "archimedes_dns" {
 #	source = "./cloudflare"
 #	cloudflare_domain = "${var.cloudflare_domain}"
