@@ -97,6 +97,7 @@ module "archimedes_host" {
 #}
 # https://gist.github.com/peterbourgon/c1841cbed2e4d2db0ff0ae7b4f2cf2da
 
+
 #module "forward1_host" {
 #	source = "./digitalocean/bare"
 #	hostname = "forward1"
@@ -142,11 +143,86 @@ module "archimedes_host" {
 #	cloudflare_name = "forward3"
 #	cloudflare_value = "${module.forward3_host.ip}"
 #}
+#module "forward4_host" {
+#	source = "./digitalocean/bare"
+#	hostname = "forward4"
+#	region = "fra1"
+#	size = "1gb"
+#	ssh_fingerprint = "${var.ssh_fingerprint}"
+#	ssh_key_file = "${var.ssh_key_file}"
+#	authorized_keys_file = "${var.authorized_keys_file}"
+#}
+#module "forward4_dns" {
+#	source = "./cloudflare"
+#	cloudflare_domain = "${var.cloudflare_domain}"
+#	cloudflare_name = "forward4"
+#	cloudflare_value = "${module.forward4_host.ip}"
+#}
+#module "forward5_host" {
+#	source = "./digitalocean/bare"
+#	hostname = "forward5"
+#	region = "fra1"
+#	size = "1gb"
+#	ssh_fingerprint = "${var.ssh_fingerprint}"
+#	ssh_key_file = "${var.ssh_key_file}"
+#	authorized_keys_file = "${var.authorized_keys_file}"
+#}
+#module "forward5_dns" {
+#	source = "./cloudflare"
+#	cloudflare_domain = "${var.cloudflare_domain}"
+#	cloudflare_name = "forward5"
+#	cloudflare_value = "${module.forward5_host.ip}"
+#}
+#module "forward6_host" {
+#	source = "./digitalocean/bare"
+#	hostname = "forward6"
+#	region = "fra1"
+#	size = "1gb"
+#	ssh_fingerprint = "${var.ssh_fingerprint}"
+#	ssh_key_file = "${var.ssh_key_file}"
+#	authorized_keys_file = "${var.authorized_keys_file}"
+#}
+#module "forward6_dns" {
+#	source = "./cloudflare"
+#	cloudflare_domain = "${var.cloudflare_domain}"
+#	cloudflare_name = "forward6"
+#	cloudflare_value = "${module.forward6_host.ip}"
+#}
+#module "forward7_host" {
+#	source = "./digitalocean/bare"
+#	hostname = "forward7"
+#	region = "fra1"
+#	size = "1gb"
+#	ssh_fingerprint = "${var.ssh_fingerprint}"
+#	ssh_key_file = "${var.ssh_key_file}"
+#	authorized_keys_file = "${var.authorized_keys_file}"
+#}
+#module "forward7_dns" {
+#	source = "./cloudflare"
+#	cloudflare_domain = "${var.cloudflare_domain}"
+#	cloudflare_name = "forward7"
+#	cloudflare_value = "${module.forward7_host.ip}"
+#}
+#module "forward8_host" {
+#	source = "./digitalocean/bare"
+#	hostname = "forward8"
+#	region = "fra1"
+#	size = "1gb"
+#	ssh_fingerprint = "${var.ssh_fingerprint}"
+#	ssh_key_file = "${var.ssh_key_file}"
+#	authorized_keys_file = "${var.authorized_keys_file}"
+#}
+#module "forward8_dns" {
+#	source = "./cloudflare"
+#	cloudflare_domain = "${var.cloudflare_domain}"
+#	cloudflare_name = "forward8"
+#	cloudflare_value = "${module.forward8_host.ip}"
+#}
 #module "ingest1_host" {
 #	source = "./digitalocean/bare"
 #	hostname = "ingest1"
 #	region = "fra1"
-#	size = "1gb"
+#	size = "8gb"
 #	ssh_fingerprint = "${var.ssh_fingerprint}"
 #	ssh_key_file = "${var.ssh_key_file}"
 #	authorized_keys_file = "${var.authorized_keys_file}"
@@ -161,7 +237,7 @@ module "archimedes_host" {
 #	source = "./digitalocean/bare"
 #	hostname = "ingest2"
 #	region = "fra1"
-#	size = "1gb"
+#	size = "8gb"
 #	ssh_fingerprint = "${var.ssh_fingerprint}"
 #	ssh_key_file = "${var.ssh_key_file}"
 #	authorized_keys_file = "${var.authorized_keys_file}"
@@ -176,7 +252,7 @@ module "archimedes_host" {
 #	source = "./digitalocean/bare"
 #	hostname = "ingest3"
 #	region = "fra1"
-#	size = "1gb"
+#	size = "8gb"
 #	ssh_fingerprint = "${var.ssh_fingerprint}"
 #	ssh_key_file = "${var.ssh_key_file}"
 #	authorized_keys_file = "${var.authorized_keys_file}"
@@ -191,7 +267,7 @@ module "archimedes_host" {
 #	source = "./digitalocean/bare"
 #	hostname = "store1"
 #	region = "fra1"
-#	size = "1gb"
+#	size = "4gb"
 #	ssh_fingerprint = "${var.ssh_fingerprint}"
 #	ssh_key_file = "${var.ssh_key_file}"
 #	authorized_keys_file = "${var.authorized_keys_file}"
@@ -206,7 +282,7 @@ module "archimedes_host" {
 #	source = "./digitalocean/bare"
 #	hostname = "store2"
 #	region = "fra1"
-#	size = "1gb"
+#	size = "4gb"
 #	ssh_fingerprint = "${var.ssh_fingerprint}"
 #	ssh_key_file = "${var.ssh_key_file}"
 #	authorized_keys_file = "${var.authorized_keys_file}"
@@ -221,7 +297,7 @@ module "archimedes_host" {
 #	source = "./digitalocean/bare"
 #	hostname = "store3"
 #	region = "fra1"
-#	size = "1gb"
+#	size = "4gb"
 #	ssh_fingerprint = "${var.ssh_fingerprint}"
 #	ssh_key_file = "${var.ssh_key_file}"
 #	authorized_keys_file = "${var.authorized_keys_file}"
@@ -231,4 +307,49 @@ module "archimedes_host" {
 #	cloudflare_domain = "${var.cloudflare_domain}"
 #	cloudflare_name = "store3"
 #	cloudflare_value = "${module.store3_host.ip}"
+#}
+#module "store4_host" {
+#	source = "./digitalocean/bare"
+#	hostname = "store4"
+#	region = "fra1"
+#	size = "4gb"
+#	ssh_fingerprint = "${var.ssh_fingerprint}"
+#	ssh_key_file = "${var.ssh_key_file}"
+#	authorized_keys_file = "${var.authorized_keys_file}"
+#}
+#module "store4_dns" {
+#	source = "./cloudflare"
+#	cloudflare_domain = "${var.cloudflare_domain}"
+#	cloudflare_name = "store4"
+#	cloudflare_value = "${module.store4_host.ip}"
+#}
+#module "store5_host" {
+#	source = "./digitalocean/bare"
+#	hostname = "store5"
+#	region = "fra1"
+#	size = "4gb"
+#	ssh_fingerprint = "${var.ssh_fingerprint}"
+#	ssh_key_file = "${var.ssh_key_file}"
+#	authorized_keys_file = "${var.authorized_keys_file}"
+#}
+#module "store5_dns" {
+#	source = "./cloudflare"
+#	cloudflare_domain = "${var.cloudflare_domain}"
+#	cloudflare_name = "store5"
+#	cloudflare_value = "${module.store5_host.ip}"
+#}
+#module "store6_host" {
+#	source = "./digitalocean/bare"
+#	hostname = "store6"
+#	region = "fra1"
+#	size = "4gb"
+#	ssh_fingerprint = "${var.ssh_fingerprint}"
+#	ssh_key_file = "${var.ssh_key_file}"
+#	authorized_keys_file = "${var.authorized_keys_file}"
+#}
+#module "store6_dns" {
+#	source = "./cloudflare"
+#	cloudflare_domain = "${var.cloudflare_domain}"
+#	cloudflare_name = "store6"
+#	cloudflare_value = "${module.store6_host.ip}"
 #}
