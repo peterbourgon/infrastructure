@@ -353,4 +353,33 @@ variable "cloudflare_domain" {}
 #	cloudflare_name = "store6"
 #	cloudflare_value = "${module.store6_host.ip}"
 #}
-#
+#module "store7_host" {
+#	source = "./digitalocean/bare"
+#	hostname = "store7"
+#	region = "fra1"
+#	size = "8gb"
+#	ssh_fingerprint = "${var.ssh_fingerprint}"
+#	ssh_key_file = "${var.ssh_key_file}"
+#	authorized_keys_file = "${var.authorized_keys_file}"
+#}
+#module "store7_dns" {
+#	source = "./cloudflare"
+#	cloudflare_domain = "${var.cloudflare_domain}"
+#	cloudflare_name = "store7"
+#	cloudflare_value = "${module.store7_host.ip}"
+#}
+#module "store8_host" {
+#	source = "./digitalocean/bare"
+#	hostname = "store8"
+#	region = "fra1"
+#	size = "8gb"
+#	ssh_fingerprint = "${var.ssh_fingerprint}"
+#	ssh_key_file = "${var.ssh_key_file}"
+#	authorized_keys_file = "${var.authorized_keys_file}"
+#}
+#module "store8_dns" {
+#	source = "./cloudflare"
+#	cloudflare_domain = "${var.cloudflare_domain}"
+#	cloudflare_name = "store8"
+#	cloudflare_value = "${module.store8_host.ip}"
+#}
