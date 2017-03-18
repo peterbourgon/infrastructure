@@ -50,51 +50,68 @@ variable "cloudflare_domain" {}
 #	cloudflare_value = "${module.husserl_host.ip}"
 #}
 
-#module "foo_host" {
-#	source = "./digitalocean/bare"
-#	hostname = "foo"
-#	region = "ams3"
-#	size = "1gb"
-#	ssh_fingerprint = "${var.ssh_fingerprint}"
-#	ssh_key_file = "${var.ssh_key_file}"
-#	authorized_keys_file = "${var.authorized_keys_file}"
-#}
-#module "foo_dns" {
-#	source = "./cloudflare"
-#	cloudflare_domain = "${var.cloudflare_domain}"
-#	cloudflare_name = "foo"
-#	cloudflare_value = "${module.foo_host.ip}"
-#}
-#module "bar_host" {
-#	source = "./digitalocean/bare"
-#	hostname = "bar"
-#	region = "ams3"
-#	size = "1gb"
-#	ssh_fingerprint = "${var.ssh_fingerprint}"
-#	ssh_key_file = "${var.ssh_key_file}"
-#	authorized_keys_file = "${var.authorized_keys_file}"
-#}
-#module "bar_dns" {
-#	source = "./cloudflare"
-#	cloudflare_domain = "${var.cloudflare_domain}"
-#	cloudflare_name = "bar"
-#	cloudflare_value = "${module.bar_host.ip}"
-#}
-#module "baz_host" {
-#	source = "./digitalocean/bare"
-#	hostname = "baz"
-#	region = "ams3"
-#	size = "1gb"
-#	ssh_fingerprint = "${var.ssh_fingerprint}"
-#	ssh_key_file = "${var.ssh_key_file}"
-#	authorized_keys_file = "${var.authorized_keys_file}"
-#}
-#module "baz_dns" {
-#	source = "./cloudflare"
-#	cloudflare_domain = "${var.cloudflare_domain}"
-#	cloudflare_name = "baz"
-#	cloudflare_value = "${module.baz_host.ip}"
-#}
+module "zipkin_host" {
+	source = "./digitalocean/full"
+	hostname = "zipkin"
+	region = "ams3"
+	size = "4gb"
+	ssh_fingerprint = "${var.ssh_fingerprint}"
+	ssh_key_file = "${var.ssh_key_file}"
+	authorized_keys_file = "${var.authorized_keys_file}"
+}
+module "zipkin_dns" {
+	source = "./cloudflare"
+	cloudflare_domain = "${var.cloudflare_domain}"
+	cloudflare_name = "zipkin"
+	cloudflare_value = "${module.zipkin_host.ip}"
+}
+
+
+module "k0_host" {
+	source = "./digitalocean/bare"
+	hostname = "k0"
+	region = "ams3"
+	size = "1gb"
+	ssh_fingerprint = "${var.ssh_fingerprint}"
+	ssh_key_file = "${var.ssh_key_file}"
+	authorized_keys_file = "${var.authorized_keys_file}"
+}
+module "k0_dns" {
+	source = "./cloudflare"
+	cloudflare_domain = "${var.cloudflare_domain}"
+	cloudflare_name = "k0"
+	cloudflare_value = "${module.k0_host.ip}"
+}
+module "k1_host" {
+	source = "./digitalocean/bare"
+	hostname = "k1"
+	region = "ams3"
+	size = "1gb"
+	ssh_fingerprint = "${var.ssh_fingerprint}"
+	ssh_key_file = "${var.ssh_key_file}"
+	authorized_keys_file = "${var.authorized_keys_file}"
+}
+module "k1_dns" {
+	source = "./cloudflare"
+	cloudflare_domain = "${var.cloudflare_domain}"
+	cloudflare_name = "k1"
+	cloudflare_value = "${module.k1_host.ip}"
+}
+module "k2_host" {
+	source = "./digitalocean/bare"
+	hostname = "k2"
+	region = "ams3"
+	size = "1gb"
+	ssh_fingerprint = "${var.ssh_fingerprint}"
+	ssh_key_file = "${var.ssh_key_file}"
+	authorized_keys_file = "${var.authorized_keys_file}"
+}
+module "k2_dns" {
+	source = "./cloudflare"
+	cloudflare_domain = "${var.cloudflare_domain}"
+	cloudflare_name = "k2"
+	cloudflare_value = "${module.k2_host.ip}"
+}
 # https://gist.github.com/peterbourgon/c1841cbed2e4d2db0ff0ae7b4f2cf2da
 
 

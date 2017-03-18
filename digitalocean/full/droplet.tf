@@ -42,9 +42,9 @@ resource "digitalocean_droplet" "droplet" {
 			"locale-gen",
 
 			# Go
-			"wget https://storage.googleapis.com/golang/go1.7.3.linux-amd64.tar.gz",
-			"tar -C /usr/local -xzf go1.7.3.linux-amd64.tar.gz",
-			"rm go1.7.3.linux-amd64.tar.gz",
+			"wget https://storage.googleapis.com/golang/go1.8.linux-amd64.tar.gz",
+			"tar -C /usr/local -xzf go1.8.linux-amd64.tar.gz",
+			"rm go1.8.linux-amd64.tar.gz",
 
 			# sudo permissions and add user
 			"sed -i.bak 's/sudo\tALL=(ALL:ALL) ALL/sudo\tALL=(ALL:ALL) NOPASSWD: ALL/g' /etc/sudoers",
@@ -53,7 +53,7 @@ resource "digitalocean_droplet" "droplet" {
 			"chown ${var.user}:sudo /home/${var.user}/.ssh",
 
 			# Weave likes to `go install -tags netgo`, which will fail unless we...
-			"chown -R ${var.user}:sudo /usr/local/go/pkg",
+			#"chown -R ${var.user}:sudo /usr/local/go/pkg",
 
 			# Docker
 			# "curl -SsL https://get.docker.com/ | sed -e 's/docker-engine/docker-engine=v1.8.0~jessie/' | sh",
@@ -63,10 +63,10 @@ resource "digitalocean_droplet" "droplet" {
 			"chmod +x /usr/local/bin/docker-compose",
 
 			# Weave
-			"curl -L git.io/weave -o /usr/local/bin/weave",
-			"chmod a+x /usr/local/bin/weave",
-			"/usr/local/go/bin/go clean -i net",
-			"/usr/local/go/bin/go install -tags netgo std",
+			#"curl -L git.io/weave -o /usr/local/bin/weave",
+			#"chmod a+x /usr/local/bin/weave",
+			#"/usr/local/go/bin/go clean -i net",
+			#"/usr/local/go/bin/go install -tags netgo std",
 			# "weave launch --ipalloc-range=10.9.0.0/16", # default range conflicts with DigitalOcean
 		]
 	}
