@@ -66,6 +66,22 @@ module "zipkin_dns" {
 	cloudflare_value = "${module.zipkin_host.ip}"
 }
 
+module "oklog_host" {
+	source = "./digitalocean/bare"
+	hostname = "oklog"
+	region = "ams3"
+	size = "4gb"
+	ssh_fingerprint = "${var.ssh_fingerprint}"
+	ssh_key_file = "${var.ssh_key_file}"
+	authorized_keys_file = "${var.authorized_keys_file}"
+}
+module "oklog_dns" {
+	source = "./cloudflare"
+	cloudflare_domain = "${var.cloudflare_domain}"
+	cloudflare_name = "oklog"
+	cloudflare_value = "${module.oklog_host.ip}"
+}
+
 
 module "k0_host" {
 	source = "./digitalocean/bare"
