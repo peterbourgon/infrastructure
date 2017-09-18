@@ -34,21 +34,21 @@ variable "cloudflare_domain" {}
 #	cloudflare_value = "${module.archimedes_host.ip}"
 #}
 
-#module "husserl_host" {
-#	source = "./digitalocean/full"
-#	hostname = "husserl"
-#	region = "ams3"
-#	size = "4gb"
-#	ssh_fingerprint = "${var.ssh_fingerprint}"
-#	ssh_key_file = "${var.ssh_key_file}"
-#	authorized_keys_file = "${var.authorized_keys_file}"
-#}
-#module "husserl_dns" {
-#	source = "./cloudflare"
-#	cloudflare_domain = "${var.cloudflare_domain}"
-#	cloudflare_name = "husserl"
-#	cloudflare_value = "${module.husserl_host.ip}"
-#}
+module "husserl_host" {
+	source = "./digitalocean/bare"
+	hostname = "husserl"
+	region = "ams3"
+	size = "2gb"
+	ssh_fingerprint = "${var.ssh_fingerprint}"
+	ssh_key_file = "${var.ssh_key_file}"
+	authorized_keys_file = "${var.authorized_keys_file}"
+}
+module "husserl_dns" {
+	source = "./cloudflare"
+	cloudflare_domain = "${var.cloudflare_domain}"
+	cloudflare_name = "husserl"
+	cloudflare_value = "${module.husserl_host.ip}"
+}
 
 #module "zipkin_host" {
 #	source = "./digitalocean/full"

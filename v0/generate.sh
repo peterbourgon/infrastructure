@@ -52,13 +52,13 @@ vars_file="terraform.tfvars"
 authorized_keys_file="authorized_keys"
 
 cat >$vars_file <<EOF
-do_token             = "$do_token"
-ssh_key_file         = "$private_key_file"
-ssh_fingerprint      = "$key_fingerprint"
+do_token = "$do_token"
+ssh_key_file = "$private_key_file"
+ssh_fingerprint = "$key_fingerprint"
 authorized_keys_file = "$authorized_keys_file"
-cloudflare_email     = "$cloudflare_email"
-cloudflare_token     = "$cloudflare_token"
-cloudflare_domain    = "$cloudflare_domain"
+cloudflare_email = "$cloudflare_email"
+cloudflare_token = "$cloudflare_token"
+cloudflare_domain = "$cloudflare_domain"
 EOF
 
 cp $public_key_file $authorized_keys_file

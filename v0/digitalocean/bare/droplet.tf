@@ -6,7 +6,7 @@ variable "ssh_key_file" {}
 variable "authorized_keys_file" {}
 
 variable "image" {
-	default = "debian-8-x64"
+	default = "debian-9-x64"
 }
 
 variable "user" {
@@ -27,7 +27,6 @@ resource "digitalocean_droplet" "droplet" {
 
 	connection {
 		user = "root"
-		key_file = "${var.ssh_key_file}"
 	}
 
 	provisioner "remote-exec" {

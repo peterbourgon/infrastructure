@@ -1,12 +1,13 @@
 variable "cloudflare_domain" {}
-variable "cloudflare_name"   {}
-variable "cloudflare_value"  {}
+variable "cloudflare_name" {}
+variable "cloudflare_value" {}
 
 resource "cloudflare_record" "record" {
 	domain = "${var.cloudflare_domain}"
-	name   = "${var.cloudflare_name}"
-	value  = "${var.cloudflare_value}"
-	type   = "A"
+	name = "${var.cloudflare_name}"
+	value = "${var.cloudflare_value}"
+	type = "A"
+	ttl = "1" # automatic
 }
 
 output "hostname" {
