@@ -15,6 +15,7 @@ resource "digitalocean_droplet" "freebsd" {
 	provisioner "remote-exec" {
 		inline = [
 			"echo installing core packages",
+			"rm /etc/motd # it does not spark joy",
 			"env PAGER=cat freebsd-update fetch # noninteractive",
 			"freebsd-update install",
 			"pkg install --yes shells/fish net/mosh git mercurial jq htop tree wget",
