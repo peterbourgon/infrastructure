@@ -25,7 +25,6 @@ variable "authorized_keys_file" {}
 #	user                 = "peter"
 #	authorized_keys_file = "${var.authorized_keys_file}"
 #}
-#
 #module "planck_dns" {
 #	source            = "./cloudflare"
 #	cloudflare_domain = "${var.cloudflare_domain}"
@@ -33,3 +32,18 @@ variable "authorized_keys_file" {}
 #	cloudflare_value  = "${module.planck_host.ip}"
 #}
 
+#module "lacroix_host" {
+#	source               = "./digitalocean/droplet/linux"
+#	hostname             = "lacroix"
+#	region               = "fra1"
+#	size                 = "1gb"
+#	ssh_fingerprint      = "${var.ssh_fingerprint}"
+#	user                 = "peter"
+#	authorized_keys_file = "${var.authorized_keys_file}"
+#}
+#module "lacroix_dns" {
+#	source            = "./cloudflare"
+#	cloudflare_domain = "${var.cloudflare_domain}"
+#	cloudflare_name   = "${module.lacroix_host.hostname}"
+#	cloudflare_value  = "${module.lacroix_host.ip}"
+#}
