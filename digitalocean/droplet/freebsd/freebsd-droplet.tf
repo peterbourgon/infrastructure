@@ -21,9 +21,9 @@ resource "digitalocean_droplet" "freebsd" {
 			"pkg install --yes shells/fish net/mosh git mercurial jq htop tree wget",
 
 			"echo installing Go",
-			"wget https://storage.googleapis.com/golang/go1.9.freebsd-amd64.tar.gz",
-			"tar -C /usr/local -xzf go1.9.freebsd-amd64.tar.gz",
-			"rm go1.9.freebsd-amd64.tar.gz",
+			"wget https://storage.googleapis.com/golang/go1.9.1.freebsd-amd64.tar.gz",
+			"tar -C /usr/local -xzf go1.9.1.freebsd-amd64.tar.gz",
+			"rm go1.9.1.freebsd-amd64.tar.gz",
 			
 			"echo setting up user ${var.user}",
 			"echo ${var.user}::::::::/usr/local/bin/fish: | adduser -G wheel -f -",

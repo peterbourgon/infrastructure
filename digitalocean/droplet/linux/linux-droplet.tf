@@ -16,20 +16,20 @@ resource "digitalocean_droplet" "linux" {
 		inline = [
 			"echo installing core packages",
 			"rm /etc/motd # it does not spark joy",
-			"echo 'deb https://download.opensuse.org/repositories/shells:/fish:/release:/2/Debian_9.0/ /' > /etc/apt/sources.list.d/fish.list",
-			"apt-get -qq update",
-			"apt-get -qq install -y --force-yes sudo make vim git mercurial mosh fish curl wget unzip htop jq binutils gcc libpcap-dev",
+			"echo 'deb http://download.opensuse.org/repositories/shells:/fish:/release:/2/Debian_9.0/ /' > /etc/apt/sources.list.d/fish.list",
+			"apt-get update >>/root/provisioning.log 2>&1",
+			"apt-get install -y --force-yes sudo make vim git mercurial mosh fish curl wget unzip htop jq binutils gcc libpcap-dev >>/root/provisioning.log 2>&1",
 
 			"echo installing Go",
-			"wget https://storage.googleapis.com/golang/go1.9.linux-amd64.tar.gz",
-			"tar -C /usr/local -xzf go1.9.linux-amd64.tar.gz",
-			"rm go1.9.linux-amd64.tar.gz",
+			"wget https://storage.googleapis.com/golang/go1.9.1.linux-amd64.tar.gz >>/root/provisioning.log 2>&1",
+			"tar -C /usr/local -xzf go1.9.1.linux-amd64.tar.gz >>/root/provisioning.log 2>&1",
+			"rm go1.9.1.linux-amd64.tar.gz",
 			
 			"echo setting up user ${var.user}",
 			"sed -i.bak 's/sudo\tALL=(ALL:ALL) ALL/sudo\tALL=(ALL:ALL) NOPASSWD: ALL/g' /etc/sudoers",
-			"adduser --shell /usr/bin/fish --ingroup sudo --disabled-password --gecos '' ${var.user}",
+			"adduser --shell /usr/bin/fish --ingroup sudo --disabled-password --gecos '' ${var.user} >>/root/provisioning.log 2>&1",
 			"mkdir -p /home/${var.user}/.ssh",
-			"chown ${var.user}:sudo /home/${var.user}/.ssh",
+			"chown -R ${var.user}:sudo /home/${var.user}/.ssh",
 		]
 	}
 
@@ -48,7 +48,7 @@ resource "digitalocean_droplet" "linux" {
 			"mkdir -p $HOME/src/github.com/peterbourgon",
 			"cd $HOME/src/github.com/peterbourgon",
 			"rm -rf dotfiles # idempotent",
-			"git clone https://github.com/peterbourgon/dotfiles",
+			"git clone --quiet https://github.com/peterbourgon/dotfiles",
 			"cd dotfiles",
 			"./install.fish",
 		]

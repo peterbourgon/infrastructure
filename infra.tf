@@ -35,8 +35,8 @@ variable "authorized_keys_file" {}
 #module "lacroix_host" {
 #	source               = "./digitalocean/droplet/linux"
 #	hostname             = "lacroix"
-#	region               = "fra1"
-#	size                 = "1gb"
+#	region               = "nyc1"
+#	size                 = "2gb"
 #	ssh_fingerprint      = "${var.ssh_fingerprint}"
 #	user                 = "peter"
 #	authorized_keys_file = "${var.authorized_keys_file}"
@@ -47,3 +47,20 @@ variable "authorized_keys_file" {}
 #	cloudflare_name   = "${module.lacroix_host.hostname}"
 #	cloudflare_value  = "${module.lacroix_host.ip}"
 #}
+
+#module "apricot_host" {
+#	source               = "./digitalocean/droplet/linux"
+#	hostname             = "apricot"
+#	region               = "nyc1"
+#	size                 = "1gb"
+#	ssh_fingerprint      = "${var.ssh_fingerprint}"
+#	user                 = "peter"
+#	authorized_keys_file = "${var.authorized_keys_file}"
+#}
+#module "apricot_dns" {
+#	source            = "./cloudflare"
+#	cloudflare_domain = "${var.cloudflare_domain}"
+#	cloudflare_name   = "${module.apricot_host.hostname}"
+#	cloudflare_value  = "${module.apricot_host.ip}"
+#}
+
