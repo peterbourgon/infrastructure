@@ -16,14 +16,19 @@ resource "digitalocean_droplet" "freebsd" {
 		inline = [
 			"echo installing core packages",
 			"rm /etc/motd # it does not spark joy",
-			"env PAGER=cat freebsd-update fetch # noninteractive",
-			"freebsd-update install",
-			"pkg install --yes shells/fish net/mosh git mercurial jq htop tree wget",
+			"env PAGER=cat freebsd-update fetch >>/root/provisioning.log 2>&1 # noninteractive",
+			"freebsd-update install >>/root/provisioning.log 2>&1",
+			"pkg install --yes shells/fish net/mosh git mercurial jq htop tree wget runit >>/root/provisioning.log 2>&1",
+
+			"echo enabling runit",
+			"mkdir /var/service",
+			"cp -R /usr/local/etc/runit /etc/runit",
+			"echo runsvdir_enable=yes >> /etc/rc.conf",
 
 			"echo installing Go",
-			"wget https://storage.googleapis.com/golang/go1.9.1.freebsd-amd64.tar.gz",
-			"tar -C /usr/local -xzf go1.9.1.freebsd-amd64.tar.gz",
-			"rm go1.9.1.freebsd-amd64.tar.gz",
+			"wget https://storage.googleapis.com/golang/go1.9.2.freebsd-amd64.tar.gz >>/root/provisioning.log 2>&1",
+			"tar -C /usr/local -xzf go1.9.2.freebsd-amd64.tar.gz >>/root/provisioning.log 2>&1",
+			"rm go1.9.2.freebsd-amd64.tar.gz >>/root/provisioning.log 2>&1",
 			
 			"echo setting up user ${var.user}",
 			"echo ${var.user}::::::::/usr/local/bin/fish: | adduser -G wheel -f -",

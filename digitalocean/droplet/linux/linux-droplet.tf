@@ -21,9 +21,9 @@ resource "digitalocean_droplet" "linux" {
 			"apt-get install -y --force-yes sudo make vim git mercurial mosh fish curl wget unzip htop jq binutils gcc libpcap-dev >>/root/provisioning.log 2>&1",
 
 			"echo installing Go",
-			"wget https://storage.googleapis.com/golang/go1.9.1.linux-amd64.tar.gz >>/root/provisioning.log 2>&1",
-			"tar -C /usr/local -xzf go1.9.1.linux-amd64.tar.gz >>/root/provisioning.log 2>&1",
-			"rm go1.9.1.linux-amd64.tar.gz",
+			"wget https://storage.googleapis.com/golang/go1.9.2.linux-amd64.tar.gz >>/root/provisioning.log 2>&1",
+			"tar -C /usr/local -xzf go1.9.2.linux-amd64.tar.gz >>/root/provisioning.log 2>&1",
+			"rm go1.9.2.linux-amd64.tar.gz",
 			
 			"echo setting up user ${var.user}",
 			"sed -i.bak 's/sudo\tALL=(ALL:ALL) ALL/sudo\tALL=(ALL:ALL) NOPASSWD: ALL/g' /etc/sudoers",
