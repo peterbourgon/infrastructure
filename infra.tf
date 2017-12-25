@@ -16,21 +16,21 @@ variable "cloudflare_domain"    {}
 variable "ssh_fingerprint"      {}
 variable "authorized_keys_file" {}
 
-module "upspin_host" {
-	source               = "./digitalocean/droplet/freebsd"
-	hostname             = "upspin"
-	region               = "sfo2"
-	size                 = "512mb"
-	ssh_fingerprint      = "${var.ssh_fingerprint}"
-	user                 = "peter"
-	authorized_keys_file = "${var.authorized_keys_file}"
-}
-module "upspin_dns" {
-	source            = "./cloudflare"
-	cloudflare_domain = "${var.cloudflare_domain}"
-	cloudflare_name   = "${module.upspin_host.hostname}"
-	cloudflare_value  = "${module.upspin_host.ip}"
-}
+#module "upspin_host" {
+#	source               = "./digitalocean/droplet/freebsd"
+#	hostname             = "upspin"
+#	region               = "sfo2"
+#	size                 = "512mb"
+#	ssh_fingerprint      = "${var.ssh_fingerprint}"
+#	user                 = "peter"
+#	authorized_keys_file = "${var.authorized_keys_file}"
+#}
+#module "upspin_dns" {
+#	source            = "./cloudflare"
+#	cloudflare_domain = "${var.cloudflare_domain}"
+#	cloudflare_name   = "${module.upspin_host.hostname}"
+#	cloudflare_value  = "${module.upspin_host.ip}"
+#}
 
 #module "lacroix_host" {
 #	source               = "./digitalocean/droplet/linux"
