@@ -1,0 +1,19 @@
+module "foo_node" {
+	source                = "./modules/droplet"
+	user                  = "peter"
+	ssh_key_fingerprint   = "${module.ssh_key.fingerprint}"
+	image                 = "debian-9-x64"
+	name                  = "foo"
+	region                = "sfo1"
+	size                  = "512mb"
+	root_provisioning     = "${concat(var.provision_core_packages, var.provision_go, var.provision_peter)}"
+	user_provisioning_one = "${concat(var.provision_dotfiles)}"
+	user_provisioning_two = "${concat(var.provision_programs)}"
+}
+
+module "foo_dns" {
+	source = "./modules/cloudflare"
+	domain = "${var.domain}"
+	name   = "${module.foo_node.name}"
+	ip     = "${module.foo_node.ip}"
+}
