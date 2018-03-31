@@ -13,9 +13,9 @@ variable "provision_core_packages" {
 variable "provision_go" {
 	default = [
 		"echo installing Go",
-		"wget https://storage.googleapis.com/golang/go1.9.2.linux-amd64.tar.gz >>/root/provisioning.log 2>&1",
-		"tar -C /usr/local -xzf go1.9.2.linux-amd64.tar.gz >>/root/provisioning.log 2>&1",
-		"rm go1.9.2.linux-amd64.tar.gz",
+		"wget https://storage.googleapis.com/golang/go1.10.1.linux-amd64.tar.gz >>/root/provisioning.log 2>&1",
+		"tar -C /usr/local -xzf go1.10.1.linux-amd64.tar.gz >>/root/provisioning.log 2>&1",
+		"rm go1.10.1.linux-amd64.tar.gz",
 	]
 }
 
@@ -28,6 +28,16 @@ variable "provision_peter" {
 		"chown -R peter:sudo /home/peter/.ssh",
 		"cp /root/.ssh/authorized_keys /home/peter/.ssh",
 		"chown peter:sudo /home/peter/.ssh/authorized_keys",
+	]
+}
+
+variable "provision_docker" {
+	default = [
+		"echo installing Docker",
+		"curl -SsL https://get.docker.com/ | sh >>/root/provisioning.log 2>&1",
+		"usermod -aG docker peter >>/root/provisioning.log 2>&1",
+		"curl -L https://github.com/docker/compose/releases/download/1.20.1/docker-compose-Linux-x86_64 > /usr/local/bin/docker-compose >>/root/provisioning.log 2>&1",
+		"chmod +x /usr/local/bin/docker-compose >>/root/provisioning.log 2>&1",
 	]
 }
 
