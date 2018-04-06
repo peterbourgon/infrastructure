@@ -48,6 +48,6 @@ resource "null_resource" "inventory" {
   }
 
   provisioner "local-exec" {
-    command = "echo '${ data.template_file.inventory.rendered }' > ../an/inventory.ini"
+    command = "echo '${ data.template_file.inventory.rendered }' > ../ansible/inventory.ini"
   }
 }

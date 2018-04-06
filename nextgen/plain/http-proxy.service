@@ -1,0 +1,12 @@
+[Unit]
+Description=http-proxy
+Documentation=https://github.com/peterbourgon/http-proxy
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/http-proxy -http ':80' -config /etc/http-proxy/proxy.conf
+
+[Install]
+WantedBy=multi-user.target
