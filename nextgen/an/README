@@ -1,1 +1,7 @@
+# Running
+
 ansible-playbook -i inventory.ini --ssh-extra-args "-o ForwardAgent=yes" *.yml
+
+# Username
+
+Is taken from username embedded in SSH key.

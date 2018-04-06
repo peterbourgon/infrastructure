@@ -40,37 +40,23 @@
   apt:
     upgrade: dist
 
-- name: add user pb
-  become: yes
-  become_method: sudo
+- name: change shell to fish
   user:
-    name: pb
+    name: "{{ ansible_user }}"
     shell: /usr/bin/fish
-    groups: sudo
-
-- name: add authorized key
-  become: yes
-  become_method: sudo
-  authorized_key: 
-    user: pb
-    key: "{{ lookup('file', 'pb_key.pub') }}"
-    state: present
 
 - name: create peterbourgon dir
-  remote_user: pb
   file:
-    path: /home/pb/src/github.com/peterbourgon
+    path: "$HOME/src/github.com/peterbourgon"
     state: directory
 
 - name: clone dotfiles repo
-  remote_user: pb
   git:
     repo: git@github.com:peterbourgon/dotfiles
-    dest: /home/pb/src/github.com/peterbourgon/dotfiles
+    dest: "$HOME/src/github.com/peterbourgon/dotfiles"
     accept_hostkey: yes
 
 - name: run dotfiles install
-  remote_user: pb
   command: ./install.fish
   args: 
-    chdir: /home/pb/src/github.com/peterbourgon/dotfiles
+    chdir: "$HOME/src/github.com/peterbourgon/dotfiles"
