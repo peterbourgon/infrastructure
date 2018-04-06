@@ -1,5 +1,6 @@
 ---
-- hosts: webby
+- hosts: microweb
   roles:
     - base
+    - golang
 

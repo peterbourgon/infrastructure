@@ -1,0 +1,74 @@
+---
+- name: check for existing go installation
+  become: yes
+  become_method: sudo
+  stat:
+    path: "{{ golang_root }}/bin/go"
+  register: checked
+
+- name: determine version of existing go installation
+  become: yes
+  become_method: sudo
+  changed_when: false # don't report changes from running shell command to check version
+  when: checked.stat.exists
+  command: "{{ golang_root }}/bin/go version"
+  register: version
+
+- name: check if go version matches {{ golang_version }}
+  become: yes
+  become_method: sudo
+  when: checked.stat.exists and version|success
+  set_fact:
+    install: "{{ version.stdout.find(golang_version) == -1 }}" # install when reported version does not match specified version
+
+- name: cleanup existing go installation
+  become: yes
+  become_method: sudo
+  when: checked.stat.exists and version|success and install
+  file:
+    path: "{{ golang_root }}"
+    state: absent
+
+- name: install go because no installation present
+  become: yes
+  become_method: sudo
+  when: checked.stat.exists == false
+  set_fact:
+    install: true
+
+- name: install version control clients used by go
+  become: yes
+  become_method: sudo
+  when: install
+  apt:
+    pkg: "{{ item }}"
+    state: present
+  with_items:
+    - git
+    - mercurial
+
+- name: download and checksum {{ golang_version }} tarball
+  become: yes
+  become_method: sudo
+  when: install
+  get_url:
+    url: "{{ golang_url }}"
+    dest: "{{ golang_tgz }}"
+    checksum: "sha256:{{ golang_sha256 }}"
+
+- name: unpack tarball
+  become: yes
+  become_method: sudo
+  when: install
+  unarchive:
+    src: "{{ golang_tgz }}"
+    dest: "/usr/local/"
+    copy: no
+
+- name: remove temporary go tarball
+  become: yes
+  become_method: sudo
+  when: install
+  file:
+    path: "{{ golang_tgz }}"
+    state: absent

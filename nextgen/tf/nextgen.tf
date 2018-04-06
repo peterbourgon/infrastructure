@@ -8,7 +8,7 @@ provider "google" {
 }
 
 #resource "google_compute_instance" "default" {
-#  name         = "webby"
+#  name         = "microweb"
 #  machine_type = "f1-micro"
 #  zone         = "us-west1-b"
 #
@@ -26,4 +26,8 @@ provider "google" {
 #    }
 #  }
 #}
+
+
+# gcloud compute config-ssh
+# edit an/inventory.ini an/*.yml
 
