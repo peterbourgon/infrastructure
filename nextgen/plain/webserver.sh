@@ -1,9 +1,10 @@
 #!/usr/bin/env sh
 
 mkdir -p /etc/http-proxy
-mv proxy.conf /etc/http-proxy
+# mv proxy.conf server.crt server.key /etc/http-proxy
+mv proxy.conf origin.pem origin.key /etc/http-proxy
 
-mkdir -p  /var/www/nextgen.bourgon.org
+mkdir -p /var/www/nextgen.bourgon.org
 mv http-proxy.service /etc/systemd/system
 
 wget --quiet https://github.com/peterbourgon/http-proxy/releases/download/v1.0.0/http-proxy-1.0.0-linux-amd64

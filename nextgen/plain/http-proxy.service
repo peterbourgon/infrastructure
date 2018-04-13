@@ -6,7 +6,7 @@ After=network-online.target
 
 [Service]
 Type=simple
-ExecStart=/usr/local/bin/http-proxy -http ':80' -config /etc/http-proxy/proxy.conf
+ExecStart=/usr/local/bin/http-proxy -http '' -tls ':443' -cert /etc/http-proxy/origin.pem -key /etc/http-proxy/origin.key -config /etc/http-proxy/proxy.conf
 
 [Install]
 WantedBy=multi-user.target

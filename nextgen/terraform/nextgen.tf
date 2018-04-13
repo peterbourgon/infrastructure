@@ -7,6 +7,18 @@ provider "google" {
   project     = "professor-wiggles"
 }
 
+resource "google_compute_firewall" "my-https-server" {
+  name    = "my-https-server"
+  network = "default"
+
+  allow {
+    protocol = "tcp"
+    ports    = ["443"]
+  }
+
+  source_tags = ["my-https-server"]
+}
+
 resource "google_compute_instance" "microweb" {
   name         = "microweb"
   machine_type = "f1-micro"
@@ -18,6 +30,8 @@ resource "google_compute_instance" "microweb" {
     }
   }
 
+  tags = ["my-https-server"]
+
   network_interface {
     network = "default"
 
@@ -27,27 +41,49 @@ resource "google_compute_instance" "microweb" {
   }
 }
 
+variable "cloudflare_email" {
+  description = "CloudFlare email address"
+}
+
+variable "cloudflare_token" {
+  description = "CloudFlare API token"
+}
+
+provider "cloudflare" {
+  email = "${var.cloudflare_email}"
+  token = "${var.cloudflare_token}"
+}
+
+resource "cloudflare_record" "nextgen" {
+  domain  = "bourgon.org"
+  name    = "nextgen"
+  value   = "${google_compute_instance.microweb.network_interface.0.access_config.0.assigned_nat_ip}"
+  type    = "A"
+  proxied = true
+}
+
 # gcloud compute config-ssh
-# edit an/inventory.ini an/*.yml
 
-data "template_file" "inventory" {
-  template = "${file("${path.module}/inventory.template")}"
 
-  depends_on = [
-    "google_compute_instance.microweb",
-  ]
+# data "template_file" "inventory" {
+#   template = "${file("${path.module}/inventory.template")}"
+# 
+#   depends_on = [
+#     "google_compute_instance.microweb",
+#   ]
+# 
+#   vars {
+#     microweb = "microweb ansible_host=${google_compute_instance.microweb.name}.${google_compute_instance.microweb.zone}.${google_compute_instance.microweb.project}"
+#   }
+# }
+# 
+# resource "null_resource" "inventory" {
+#   triggers {
+#     template_rendered = "${ data.template_file.inventory.rendered }"
+#   }
+# 
+#   provisioner "local-exec" {
+#     command = "echo '${ data.template_file.inventory.rendered }' > ../ansible/inventory.ini"
+#   }
+# }
 
-  vars {
-    microweb = "microweb ansible_host=${google_compute_instance.microweb.name}.${google_compute_instance.microweb.zone}.${google_compute_instance.microweb.project}"
-  }
-}
-
-resource "null_resource" "inventory" {
-  triggers {
-    template_rendered = "${ data.template_file.inventory.rendered }"
-  }
-
-  provisioner "local-exec" {
-    command = "echo '${ data.template_file.inventory.rendered }' > ../ansible/inventory.ini"
-  }
-}
