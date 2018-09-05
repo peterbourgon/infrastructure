@@ -1,6 +1,0 @@
----
-- hosts: microweb
-  roles:
-    - base
-    - golang
-
