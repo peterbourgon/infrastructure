@@ -1,0 +1,21 @@
+08d2.com {
+		tls {
+				dns digitalocean
+				max_certs 10
+		}
+		root /var/www/08d2.com
+		log stdout
+		errors stderr
+		gzip
+}
+
+www.08d2.com {
+		redir 08d2.com{path}?{query}{fragment}
+}
+
+00.08d2.com {
+		root /var/www/00.08d2.com
+		log stdout
+		errors stderr
+		gzip
+}
