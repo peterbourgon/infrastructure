@@ -10,7 +10,7 @@
 }
 
 www.08d2.com {
-		redir 08d2.com{path}?{query}{fragment}
+		redir https://08d2.com{uri}
 }
 
 00.08d2.com {
