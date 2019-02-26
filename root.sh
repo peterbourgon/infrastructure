@@ -9,9 +9,9 @@ apt-get update
 apt-get install -y --force-yes sudo make vim git mercurial fish curl wget unzip htop jq binutils gcc libcap2-bin
 
 echo installing Go
-wget -q https://storage.googleapis.com/golang/go1.11.linux-amd64.tar.gz
-tar -C /usr/local -xzf go1.11.linux-amd64.tar.gz
-rm go1.11.linux-amd64.tar.gz
+wget -q https://storage.googleapis.com/golang/go1.12.linux-amd64.tar.gz
+tar -C /usr/local -xzf go1.12.linux-amd64.tar.gz
+rm go1.12.linux-amd64.tar.gz
 
 echo setting up user pb
 sed -i.bak 's/sudo\tALL=(ALL:ALL) ALL/sudo\tALL=(ALL:ALL) NOPASSWD: ALL/g' /etc/sudoers
