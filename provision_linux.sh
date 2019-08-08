@@ -2,8 +2,8 @@
 
 set host $argv[1]
 
-scp linux_root.sh root@$host:
-ssh root@$host -- ./linux_root.sh
+scp root_linux.sh root@$host:
+ssh root@$host -- ./root_linux.sh
 
 scp user1.sh user2.sh pb@$host:
 ssh -A pb@$host -- ./user1.sh
