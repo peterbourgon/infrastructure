@@ -1,6 +1,7 @@
 #!/usr/bin/env tcsh
 
 echo installing core packages
+rm /etc/motd
 pkg update -f
 pkg install -y fish git mercurial htop 
 
