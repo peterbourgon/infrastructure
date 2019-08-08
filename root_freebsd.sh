@@ -3,7 +3,7 @@
 echo installing core packages
 rm /etc/motd
 pkg update -f
-pkg install -y fish git mercurial htop ripgrep
+pkg install -y fish git mercurial htop ripgrep rsync
 
 echo installing Go
 setenv GOVERSION `curl -Ss 'https://golang.org/VERSION?m=text'`

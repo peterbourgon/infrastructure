@@ -6,7 +6,7 @@ echo 'deb http://download.opensuse.org/repositories/shells:/fish:/release:/2/Deb
 wget -nv https://download.opensuse.org/repositories/shells:fish:release:2/Debian_9.0/Release.key -O Release.key
 apt-key add - < Release.key
 apt-get update
-apt-get install -y --force-yes sudo make vim git mercurial fish curl wget unzip htop jq binutils gcc libcap2-bin ripgrep
+apt-get install -y --force-yes sudo make vim git mercurial fish curl wget unzip htop jq binutils gcc libcap2-bin ripgrep rsync
 
 echo installing Go
 export GOVERSION=$(curl -Ss 'https://golang.org/VERSION?m=text')
