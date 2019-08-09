@@ -23,3 +23,6 @@ echo disabling root SSH login
 sed -i.bak 's/^PermitRootLogin .*$/PermitRootLogin no/' /etc/ssh/sshd_config
 service sshd restart
 
+echo cleaning up
+rm root.sh
+
