@@ -2,10 +2,11 @@
 
 echo installing core packages
 rm /etc/motd # it does not spark joy
-echo 'deb http://download.opensuse.org/repositories/shells:/fish:/release:/2/Debian_9.0/ /' > /etc/apt/sources.list.d/fish.list
-wget -nv https://download.opensuse.org/repositories/shells:fish:release:2/Debian_9.0/Release.key -O Release.key
-apt-key add - < Release.key
 apt-get update
+apt-get install -y --force-yes gnupg # required to apt-key add and not installed by default anymore??
+echo 'deb http://download.opensuse.org/repositories/shells:/fish:/release:/2/Debian_9.0/ /' > /etc/apt/sources.list.d/fish.list
+wget -q -nv https://download.opensuse.org/repositories/shells:fish:release:2/Debian_9.0/Release.key -O Release.key
+apt-key add - < Release.key
 apt-get install -y --force-yes sudo make vim git mercurial fish curl wget unzip htop jq binutils gcc libcap2-bin ripgrep rsync
 
 echo installing Go
