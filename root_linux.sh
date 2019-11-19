@@ -28,5 +28,5 @@ sed -i.bak 's/^PermitRootLogin .*$/PermitRootLogin no/' /etc/ssh/sshd_config
 systemctl restart sshd
 
 echo cleaning up
-rm root.sh
+rm root_linux.sh
 
