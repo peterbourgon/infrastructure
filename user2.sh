@@ -1,9 +1,9 @@
 #!/usr/bin/env sh
 
 echo installing some Go programs
-go get github.com/peterbourgon/grender
-go get github.com/peterbourgon/stats
-go get github.com/peterbourgon/sums
+go install github.com/peterbourgon/grender@latest
+go install github.com/peterbourgon/stats@latest
+go install github.com/peterbourgon/sums@latest
 
 echo cleaning up
 rm user1.sh user2.sh
